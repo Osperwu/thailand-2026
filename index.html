@@ -12,6 +12,8 @@
     --orange: #D4602A; --bg: #FAFAF7; --card: #FFFFFF;
     --text: #2C2C2C; --text-sub: #666666; --border: #E8E0D0;
     --shadow: 0 2px 12px rgba(0,0,0,0.08); --shadow-hover: 0 6px 24px rgba(0,0,0,0.14);
+    --food-bg:#FFFBF0; --food-bg-hv:#FFF3CC; --chip:#F4F4F4;
+    --text-note:#777; --text-faint:#aaa; --nav-bg:rgba(255,255,255,.88);
   }
   body { font-family: 'Helvetica Neue','微軟正黑體','Microsoft JhengHei',sans-serif; background:var(--bg); color:var(--text); }
   .hero { background:linear-gradient(135deg,#0E4D4D 0%,#0E6B6B 40%,#1A9B8A 70%,#C9952A 100%); color:#fff; padding:56px 24px 48px; text-align:center; position:relative; overflow:hidden; }
@@ -68,8 +70,8 @@
   .tl-item { display:grid; grid-template-columns:80px 1px 1fr; gap:0 16px; padding:12px 20px; align-items:stretch; }
   .tl-item:hover { background:var(--gold-pale); }
   .tl-item:not(:last-child) { border-bottom:1px solid var(--border); }
-  .tl-item.food-spot { background:#FFFBF0; }
-  .tl-item.food-spot:hover { background:#FFF3CC; }
+  .tl-item.food-spot { background:var(--food-bg); }
+  .tl-item.food-spot:hover { background:var(--food-bg-hv); }
   .tl-time { font-size:12px; font-weight:700; color:var(--teal); text-align:right; padding-top:2px; line-height:1.4; white-space:pre-line; }
   .tl-dot-col { display:flex; flex-direction:column; align-items:center; }
   .tl-dot { width:10px; height:10px; border-radius:50%; background:var(--gold); border:2px solid var(--gold-light); flex-shrink:0; margin-top:4px; }
@@ -78,17 +80,17 @@
   .tl-item:last-child .tl-line { display:none; }
   .tl-content { padding-bottom:4px; }
   .tl-activity { font-size:14px; font-weight:600; line-height:1.4; }
-  .tl-location { display:inline-flex; align-items:center; gap:4px; font-size:11px; color:var(--text-sub); margin-top:4px; background:#F4F4F4; padding:2px 8px; border-radius:8px; }
+  .tl-location { display:inline-flex; align-items:center; gap:4px; font-size:11px; color:var(--text-sub); margin-top:4px; background:var(--chip); padding:2px 8px; border-radius:8px; }
   .tl-location a { color:var(--teal); text-decoration:none; font-weight:600; }
   .tl-location a:hover { text-decoration:underline; }
-  .tl-note { font-size:11px; color:#777; margin-top:5px; }
+  .tl-note { font-size:11px; color:var(--text-note); margin-top:5px; }
   .tl-tag { display:inline-block; font-size:10px; font-weight:700; padding:1px 7px; border-radius:8px; margin-left:6px; vertical-align:middle; }
   .tag-michelin { background:#FEE2E2; color:#B91C1C; }
   .tag-24h { background:#D1FAE5; color:#065F46; }
   .tag-fri { background:#DBEAFE; color:#1E40AF; }
   .tag-t21 { background:#EDE9FE; color:#5B21B6; }
   .tag-warn { background:#FEF3C7; color:#92400E; }
-  .footer { text-align:center; padding:24px; font-size:12px; color:#aaa; border-top:1px solid var(--border); }
+  .footer { text-align:center; padding:24px; font-size:12px; color:var(--text-faint); border-top:1px solid var(--border); }
   @media(max-width:480px) {
     .tl-item { grid-template-columns:68px 1px 1fr; gap:0 10px; }
     .tl-time { font-size:11px; }
@@ -104,7 +106,63 @@
    letter-spacing:.5px;text-decoration:none;display:flex;align-items:center;gap:7px;
    transition:.2s}
   .switch-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px #b8860b77}
+
+  /* ============ 深色模式 ============ */
+  [data-theme="dark"] {
+    --gold:#D9A93C; --gold-light:#8a6a26; --gold-pale:#26221a;
+    --teal:#3FBFAE; --teal-light:#1A9B8A; --teal-pale:#12332f;
+    --orange:#E8834F; --bg:#12151a; --card:#1b1f25;
+    --text:#e7e3da; --text-sub:#9a958c; --border:#2d333b;
+    --shadow:0 2px 12px rgba(0,0,0,.5); --shadow-hover:0 6px 24px rgba(0,0,0,.7);
+    --food-bg:#231d10; --food-bg-hv:#312713; --chip:#262b32;
+    --text-note:#8d8880; --text-faint:#5f6570; --nav-bg:rgba(20,24,29,.9);
+  }
+  [data-theme="dark"] .tag-michelin{background:#4a1d1d;color:#fca5a5}
+  [data-theme="dark"] .tag-24h{background:#0f3d2e;color:#6ee7b7}
+  [data-theme="dark"] .tag-fri{background:#1a2f5c;color:#93c5fd}
+  [data-theme="dark"] .tag-t21{background:#2e2154;color:#c4b5fd}
+  [data-theme="dark"] .tag-warn{background:#3f2f10;color:#fcd34d}
+  [data-theme="dark"] .tag-show{background:#4a1435;color:#f9a8d4}
+  [data-theme="dark"] .tl-note b{color:#e3ddd2}
+  html{scroll-behavior:smooth}
+  body{transition:background .25s,color .25s}
+
+  /* ============ 頂部快速導覽列 ============ */
+  .navbar{position:sticky;top:0;z-index:900;background:var(--nav-bg);
+   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+   border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;
+   padding:8px 10px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  .nav-scroll{display:flex;gap:6px;overflow-x:auto;flex:1;
+   scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+  .nav-scroll::-webkit-scrollbar{display:none}
+  .nav-wrap{position:relative;flex:1;min-width:0;display:flex}
+  .nav-wrap::after{content:'';position:absolute;right:0;top:0;bottom:0;width:26px;
+   pointer-events:none;background:linear-gradient(90deg,transparent,var(--nav-bg))}
+  .nav-chip{flex:0 0 auto;border:1px solid var(--border);background:transparent;
+   color:var(--text-sub);border-radius:16px;padding:6px 13px;font-size:12.5px;
+   font-weight:700;cursor:pointer;white-space:nowrap;transition:.18s;
+   font-family:inherit;text-decoration:none;display:inline-block}
+  .nav-chip:hover{border-color:var(--teal);color:var(--teal)}
+  .nav-chip.on{background:linear-gradient(135deg,var(--teal),var(--teal-light));
+   color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(14,107,107,.35)}
+  .theme-btn{flex:0 0 auto;width:36px;height:36px;border-radius:50%;
+   border:1px solid var(--border);background:var(--card);cursor:pointer;
+   font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;
+   transition:.18s;padding:0}
+  .theme-btn:hover{border-color:var(--gold);transform:rotate(-18deg)}
+  .day-section,.anchor{scroll-margin-top:62px}
+  @media(max-width:480px){
+    .navbar{padding:7px 8px;gap:6px}
+    .nav-chip{padding:5px 11px;font-size:12px}
+    .theme-btn{width:32px;height:32px;font-size:15px}
+    .day-section,.anchor{scroll-margin-top:56px}
+  }
 </style>
+<script>
+(function(){try{var t=localStorage.getItem('th2026-theme');
+if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
+</script>
 </head>
 
 <body>
@@ -123,6 +181,20 @@
     <span class="hero-badge">🥊 泰拳體驗課</span>
   </div>
 </div>
+<nav class="navbar">
+  <div class="nav-wrap"><div class="nav-scroll" id="navScroll">
+    <a class="nav-chip" href="#flights" data-t="flights">✈️ 航班</a>
+    <a class="nav-chip" href="#stays" data-t="stays">🏨 住宿</a>
+    <a class="nav-chip" href="#d1" data-t="d1">D1 抵達</a>
+    <a class="nav-chip" href="#d2" data-t="d2">D2 芭達雅</a>
+    <a class="nav-chip" href="#d3" data-t="d3">D3 格蘭島</a>
+    <a class="nav-chip" href="#d4" data-t="d4">D4 洽圖洽</a>
+    <a class="nav-chip" href="#d5" data-t="d5">D5 古蹟</a>
+    <a class="nav-chip" href="#d6" data-t="d6">D6 泰拳</a>
+    <a class="nav-chip" href="#d7" data-t="d7">D7 返台</a>
+  </div></div>
+  <button class="theme-btn" id="themeBtn" title="切換深色/淺色模式" aria-label="切換主題">🌙</button>
+</nav>
 <div class="container">
   <div class="summary-bar">
     <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-val">7天6夜</div><div class="stat-label">行程天數</div></div>
@@ -131,7 +203,7 @@
     <div class="stat-card"><div class="stat-icon">📍</div><div class="stat-val">2城市</div><div class="stat-label">曼谷＋芭達雅</div></div>
   </div>
 
-  <div class="section-title"><span class="icon">✈️</span> 航班資訊</div>
+  <div id="flights" class="section-title anchor"><span class="icon">✈️</span> 航班資訊</div>
   <div class="info-grid">
     <div class="card flight-card">
       <div class="flight-label">去程航班</div>
@@ -153,7 +225,7 @@
     </div>
   </div>
 
-  <div class="section-title"><span class="icon">🏨</span> 住宿資訊</div>
+  <div id="stays" class="section-title anchor"><span class="icon">🏨</span> 住宿資訊</div>
   <div class="info-grid">
     <div class="card hotel-card">
       <div class="hotel-name">素萬那普平房酒店</div><div class="hotel-sub">The Cottage Suvarnabhumi ｜ 訂房已確認 ✅</div>
@@ -212,7 +284,7 @@
   <div class="section-title"><span class="icon">🗓️</span> 每日行程</div>
 
   <!-- D1 -->
-  <div class="day-section day-1">
+  <div id="d1" class="day-section day-1">
     <div class="day-header">
       <div class="day-num">D1</div>
       <div class="day-info"><div class="day-date">2026 / 09 / 02（三）</div><div class="day-theme">✈️ 飛往曼谷 ／ 入住機場附近</div></div>
@@ -247,7 +319,7 @@
   </div>
 
   <!-- D2 -->
-  <div class="day-section day-2">
+  <div id="d2" class="day-section day-2">
     <div class="day-header">
       <div class="day-num">D2</div>
       <div class="day-info"><div class="day-date">2026 / 09 / 03（四）</div><div class="day-theme">🏊 晨泳 ／ 移動至芭達雅 ／ 真理寺 ／ 飛機夜市</div></div>
@@ -331,7 +403,7 @@
   </div>
 
   <!-- D3 -->
-  <div class="day-section day-3">
+  <div id="d3" class="day-section day-3">
     <div class="day-header">
       <div class="day-num">D3</div>
       <div class="day-info"><div class="day-date">2026 / 09 / 04（五）</div><div class="day-theme">🏄 格蘭島跳島 ／ 最大夜市 ／ 啤酒花園 ／ 步行街</div></div>
@@ -392,7 +464,7 @@
   </div>
 
   <!-- D4 -->
-  <div class="day-section day-4">
+  <div id="d4" class="day-section day-4">
     <div class="day-header">
       <div class="day-num">D4</div>
       <div class="day-info"><div class="day-date">2026 / 09 / 05（六）</div><div class="day-theme">&#128758; 四方水上市場 ／ 返回曼谷 ／ &#128717; 洽圖洽</div></div>
@@ -465,7 +537,7 @@
   </div>
 
   <!-- D5 -->
-  <div class="day-section day-5">
+  <div id="d5" class="day-section day-5">
     <div class="day-header">
       <div class="day-num">D5</div>
       <div class="day-info"><div class="day-date">2026 / 09 / 06（日）</div><div class="day-theme">🛕 古蹟 ／ 👘 泰服 ／ 唐人街掃街 ／ 💃 人妖秀</div></div>
@@ -576,7 +648,7 @@
   </div>
 
   <!-- D6 -->
-  <div class="day-section day-6">
+  <div id="d6" class="day-section day-6">
     <div class="day-header">
       <div class="day-num">D6</div>
       <div class="day-info"><div class="day-date">2026 / 09 / 07（一）</div><div class="day-theme">&#129354; 打泰拳 ／ &#127857; Buffet ／ &#127798; 打拋飯 ／ &#127751; 天空步道</div></div>
@@ -693,7 +765,7 @@
   </div>
 
   <!-- D7 -->
-  <div class="day-section day-7">
+  <div id="d7" class="day-section day-7">
     <div class="day-header">
       <div class="day-num">D7</div>
       <div class="day-info"><div class="day-date">2026 / 09 / 08（二）</div><div class="day-theme">&#128516; 悠閒收尾 ／ &#127836; 船麵最後一餐 ／ &#127978; Terminal 21 ／ 返台</div></div>
@@ -781,5 +853,63 @@
 <div class="footer">🇹🇭 泰國曼谷芭達雅 7天6夜自由行 2026 · 行程表</div>
 
 <a class="switch-btn" href="preview-book.html">📖 護照版</a>
+
+<script>
+(function(){
+/* ---------- 1. 深色模式切換 ---------- */
+var root=document.documentElement, btn=document.getElementById('themeBtn');
+function sync(){var d=root.getAttribute('data-theme')==='dark';btn.textContent=d?'☀️':'🌙';}
+sync();
+btn.addEventListener('click',function(){
+  var d=root.getAttribute('data-theme')==='dark';
+  if(d){root.removeAttribute('data-theme');}else{root.setAttribute('data-theme','dark');}
+  try{localStorage.setItem('th2026-theme',d?'light':'dark');}catch(e){}
+  sync();
+});
+
+/* ---------- 2. 地點轉 Google Maps 連結 ---------- */
+document.querySelectorAll('.tl-location').forEach(function(el){
+  if(el.querySelector('a')) return;                 // 已有連結就跳過
+  var raw=el.textContent.trim();
+  if(raw.indexOf('\u{1F4CD}')!==0) return;            // 只處理 📍 開頭（略過 🛫 航班列）
+  var q=raw.replace(/^\u{1F4CD}\s*/u,'').split('\uFF5C')[0].trim();
+  if(q.length<2) return;
+  if(/[\u2192>]|依當天|自理|各大百貨/.test(q)) return;  // 移動路線 / 模糊描述不轉
+  var tw=/桃園|TPE|台灣|臺灣/.test(q);
+  var url='https://www.google.com/maps/search/?api=1&query='+
+          encodeURIComponent(tw?q:q+' \u6CF0\u570B');
+  var a=document.createElement('a');
+  a.href=url;a.target='_blank';a.rel='noopener';a.textContent=q;
+  el.textContent='\u{1F4CD} ';el.appendChild(a);
+});
+
+/* ---------- 3. 導覽列 scroll-spy ---------- */
+var chips=[].slice.call(document.querySelectorAll('.nav-chip')),
+    scroller=document.getElementById('navScroll'),
+    map={};
+chips.forEach(function(c){map[c.dataset.t]=c;});
+var targets=chips.map(function(c){return document.getElementById(c.dataset.t);}).filter(Boolean);
+var active=null;
+function setActive(id){
+  if(id===active) return; active=id;
+  chips.forEach(function(c){c.classList.toggle('on',c.dataset.t===id);});
+  var c=map[id];
+  if(c) scroller.scrollTo({left:c.offsetLeft-scroller.clientWidth/2+c.offsetWidth/2,behavior:'smooth'});
+}
+if('IntersectionObserver' in window){
+  var seen={};
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){seen[e.target.id]=e.isIntersecting?e.boundingClientRect.top:null;});
+    var best=null,bestTop=1e9;
+    targets.forEach(function(t){
+      var r=t.getBoundingClientRect();
+      if(r.top<=140&&r.bottom>=100&&r.top<bestTop){bestTop=r.top;best=t.id;}
+    });
+    if(best) setActive(best);
+  },{rootMargin:'-90px 0px -55% 0px',threshold:[0,.1,.5]});
+  targets.forEach(function(t){io.observe(t);});
+}
+})();
+</script>
 </body>
 </html>
