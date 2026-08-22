@@ -13,7 +13,7 @@
     --text: #2C2C2C; --text-sub: #666666; --border: #E8E0D0;
     --shadow: 0 2px 12px rgba(0,0,0,0.08); --shadow-hover: 0 6px 24px rgba(0,0,0,0.14);
     --food-bg:#FFFBF0; --food-bg-hv:#FFF3CC; --chip:#F4F4F4;
-    --text-note:#777; --text-faint:#aaa; --nav-bg:rgba(255,255,255,.88);
+    --text-note:#777; --text-faint:#aaa;
   }
   body { font-family: 'Helvetica Neue','微軟正黑體','Microsoft JhengHei',sans-serif; background:var(--bg); color:var(--text); }
   .hero { background:linear-gradient(135deg,#0E4D4D 0%,#0E6B6B 40%,#1A9B8A 70%,#C9952A 100%); color:#fff; padding:56px 24px 48px; text-align:center; position:relative; overflow:hidden; }
@@ -21,8 +21,7 @@
   .hero-flag { font-size:64px; margin-bottom:12px; }
   .hero h1 { font-size:clamp(22px,5vw,36px); font-weight:800; letter-spacing:0.5px; text-shadow:0 2px 8px rgba(0,0,0,0.3); }
   .hero-sub { margin-top:10px; font-size:15px; opacity:0.85; letter-spacing:1px; }
-  .hero-badges { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:20px; }
-  .hero-badge { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:6px 16px; font-size:13px; font-weight:600; }
+
   .container { max-width:960px; margin:0 auto; padding:32px 16px 64px; }
   .section-title { display:flex; align-items:center; gap:10px; font-size:18px; font-weight:700; color:var(--teal); margin-bottom:16px; padding-bottom:8px; border-bottom:2px solid var(--gold-light); }
   .info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-bottom:40px; }
@@ -115,7 +114,7 @@
     --text:#e7e3da; --text-sub:#9a958c; --border:#2d333b;
     --shadow:0 2px 12px rgba(0,0,0,.5); --shadow-hover:0 6px 24px rgba(0,0,0,.7);
     --food-bg:#231d10; --food-bg-hv:#312713; --chip:#262b32;
-    --text-note:#8d8880; --text-faint:#5f6570; --nav-bg:rgba(20,24,29,.9);
+    --text-note:#8d8880; --text-faint:#5f6570;
   }
   [data-theme="dark"] .tag-michelin{background:#4a1d1d;color:#fca5a5}
   [data-theme="dark"] .tag-24h{background:#0f3d2e;color:#6ee7b7}
@@ -128,28 +127,29 @@
   body{transition:background .25s,color .25s}
 
   /* ============ 頂部快速導覽列 ============ */
-  .navbar{position:sticky;top:0;z-index:900;background:var(--nav-bg);
-   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-   border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;
-   padding:8px 10px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  .navbar{position:sticky;top:0;z-index:900;
+   background:linear-gradient(135deg,#0E4D4D 0%,#0E6B6B 40%,#1A9B8A 70%,#C9952A 100%);
+   display:flex;align-items:center;gap:8px;
+   padding:8px 10px;box-shadow:0 2px 16px rgba(0,0,0,.28)}
   .nav-scroll{display:flex;gap:6px;overflow-x:auto;flex:1;
    scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
   .nav-scroll::-webkit-scrollbar{display:none}
   .nav-wrap{position:relative;flex:1;min-width:0;display:flex}
-  .nav-wrap::after{content:'';position:absolute;right:0;top:0;bottom:0;width:26px;
-   pointer-events:none;background:linear-gradient(90deg,transparent,var(--nav-bg))}
-  .nav-chip{flex:0 0 auto;border:1px solid var(--border);background:transparent;
-   color:var(--text-sub);border-radius:16px;padding:6px 13px;font-size:12.5px;
+  .nav-wrap::after{content:'';position:absolute;right:0;top:0;bottom:0;width:28px;
+   pointer-events:none;background:linear-gradient(90deg,transparent,rgba(180,120,20,.92))}
+  .nav-chip{flex:0 0 auto;border:1px solid rgba(255,255,255,0.3);
+   background:rgba(255,255,255,0.18);
+   color:#fff;border-radius:20px;padding:6px 13px;font-size:12.5px;
    font-weight:700;cursor:pointer;white-space:nowrap;transition:.18s;
    font-family:inherit;text-decoration:none;display:inline-block}
-  .nav-chip:hover{border-color:var(--teal);color:var(--teal)}
-  .nav-chip.on{background:linear-gradient(135deg,var(--teal),var(--teal-light));
-   color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(14,107,107,.35)}
+  .nav-chip:hover{background:rgba(255,255,255,0.28);border-color:rgba(255,255,255,0.55);color:#fff}
+  .nav-chip.on{background:rgba(255,255,255,0.38);
+   color:#fff;border-color:rgba(255,255,255,0.65);box-shadow:0 2px 10px rgba(0,0,0,.22)}
   .theme-btn{flex:0 0 auto;width:36px;height:36px;border-radius:50%;
-   border:1px solid var(--border);background:var(--card);cursor:pointer;
+   border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.18);cursor:pointer;
    font-size:16px;line-height:1;display:flex;align-items:center;justify-content:center;
    transition:.18s;padding:0}
-  .theme-btn:hover{border-color:var(--gold);transform:rotate(-18deg)}
+  .theme-btn:hover{border-color:rgba(255,255,255,0.65);transform:rotate(-18deg)}
   .day-section,.anchor{scroll-margin-top:62px}
   @media(max-width:480px){
     .navbar{padding:7px 8px;gap:6px}
@@ -170,16 +170,6 @@ if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(
   <div class="hero-flag">🇹🇭</div>
   <h1>泰國曼谷・芭達雅</h1>
   <div class="hero-sub">7天6夜自由行 ｜ 2026 / 09 / 02 — 09 / 08</div>
-  <div class="hero-badges">
-    <span class="hero-badge">✈️ 越捷航空 VZ</span>
-    <span class="hero-badge">🏨 3間飯店</span>
-    <span class="hero-badge">🏖️ 格蘭島跳島</span>
-    <span class="hero-badge">🛕 曼谷古蹟</span>
-    <span class="hero-badge">&#127751; 高空天空步道</span>
-    <span class="hero-badge">👘 鄭王廟泰服</span>
-    <span class="hero-badge">🛶 水上市場</span>
-    <span class="hero-badge">🥊 泰拳體驗課</span>
-  </div>
 </div>
 <nav class="navbar">
   <div class="nav-wrap"><div class="nav-scroll" id="navScroll">
